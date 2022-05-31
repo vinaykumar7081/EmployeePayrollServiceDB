@@ -5,11 +5,9 @@ Use Payroll_Service;
 Create table Employee_Payroll(Id int  NOT NULL primary key IDENTITY(101,1),Name varchar(35) NOT NULL,Salary Money NOT NULL, StartDate Date NOT NULL
 );
 
-
-
 insert into Employee_Payroll 
 values
-('Anish',30000,'2022.APR.15'),
+('Anish',30000,'2021.APR.15'),
 ('Akash',20000,'2022.MAY.15'),
 ('Anurag',22000,'2022.APR.12'),
 ('Geetanjali',50000,'2022.01.01'),
@@ -20,3 +18,10 @@ values
 ('Abhinav',23000,'2022.APR.13');
 
 select *from Employee_Payroll;
+
+
+select Salary from Employee_Payroll
+where Name='Babu';
+
+select StartDate  from Employee_Payroll
+ WHERE (StartDate BETWEEN '2022-03-15' AND GETDATE());
