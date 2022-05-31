@@ -25,3 +25,13 @@ where Name='Babu';
 
 select StartDate  from Employee_Payroll
  WHERE (StartDate BETWEEN '2022-03-15' AND GETDATE());
+
+ 
+ Alter table Employee_Payroll Add Gender varchar(1);
+
+ Update Employee_Payroll set Gender='M' where Id in(101,102,103,105,106,109);
+
+ Update Employee_Payroll set Gender='F' where Id in(104,107,108);
+
+ select Name from Employee_Payroll
+ where Gender='F';
