@@ -80,11 +80,18 @@ select StartDate  from Employee_Payroll
 
 		  -----Creating Procedure Without Parameter-------
 
-	Create PROCEDURE spGetEmployeePayroll
+	Alter PROCEDURE spGetEmployeePayroll
 	AS
 	BEGIN
 			Select Name, Salary from Employee_Payroll 
 	END
+
+	Alter PROCEDURE spGetAllEmployeePayroll
+	AS
+	BEGIN
+			Select * from Employee_Payroll 
+	END
+	execute spGetAllEmployeePayroll
 
 	 Execute spGetEmployeePayroll
 
@@ -99,7 +106,7 @@ select StartDate  from Employee_Payroll
 
   Alter  PROC spUpdateEmployeePayRoll --with the Store Procedure Updating the Data--
   
-  @Id int(5),
+  @Id int,
   @Name varchar(20)
   as
   begin
@@ -202,4 +209,41 @@ begin
 		return
 End    
 
-Select*from FN_MSTVF_GetEmployee()  
+Select*from FN_MSTVF_GetEmployee();
+
+------UC10----
+
+select * from Department;
+Select * From EmployeeMapping;
+Create Table Department 
+(DptId int NOT NULL Primary Key Identity(101,1),DeptName varchar(35) NOT NULL);
+
+Create Table EmployeeMapping
+(EmpId int Primary Key NoT Null Identity(101,1),
+MappingId int,
+EmployeePayRollId int Foreign Key References Employee_Payroll(Id),
+DeptId int Foreign Key References Department(DptId));
+
+insert into Department
+values
+('Development'),
+('Testing'),
+('Management'),
+('Marketing'),
+('NetWorking'),
+('Sales'),
+('Development');
+
+insert into EmployeeMapping
+values
+(101,101,101),
+(101,102,103);
+
+Alter Table Employee_PayRoll
+Drop Column Department;
+
+
+Select Name,Salary,StartDate, Gender,ContactNumber,Address, Pay, Deduction,TaxablePay,NetPay,
+ Department.DeptName from Employee_Payroll INNER JOIN EmployeeMapping ON 
+Employee_Payroll.Id=EmployeeMapping.EmployeePayRollId
+INNER JOIN Department ON  Department.DptId=EmployeeMapping.DeptId;
